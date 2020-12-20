@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    
+
     private CharacterController _controller;
 
     [SerializeField]
-    private float _movespeed = 5f;
+    private float _moveSpeed = 5f;
     [SerializeField]
-    private float _gravity = 9f;
-    [SerializeField]
-    private float _jumpSpeed = 3f;
+    private float _gravity = 5f;
 
-    private float _directionY;
+    // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
     }
 
-    
+    // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -28,14 +26,9 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
 
-        if(Input.GetButtonDown("jump"))
-        {
-            _directionY = _jumpSpeed;
-        }
-
         direction.y -= _gravity;
-        direction.y = _directionY;
 
-        _controller.Move(direction *_movespeed * Time.deltaTime);
+        _controller.Move(direction *_moveSpeed * Time.deltaTime);
+
     }
 }
